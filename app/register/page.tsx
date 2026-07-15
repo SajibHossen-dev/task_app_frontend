@@ -1,20 +1,41 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaUser, FaLock, FaUserPlus, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { link } from "fs";
 import Button from "@/components/ui/Button";
 
 const RegisterPage = () => {
+    const [formData , setFormData]=useState({
+        name : '',
+        email : '',
+        password : '',
+        confirmPassword : ''
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+        setFormData({
+            ...formData,
+            [e.target.name] : e.target.value
+           
+        })
+    }
+    const handleSubmit = (e : React.FormEvent)=>{
+        e.preventDefault();
+        if(formData.password !== formData.confirmPassword){
+            alert("Password does not match")
+            return
+        }
+        console.log(formData)
+    }
   return (
     <div className="h-full w-full bg-[#eaf2ea]">
       <div className=" sm:w-full md:w-[30%] m-auto">
         <h2 className="text-3xl text-center mt-9 capitalize text-black ">sing up</h2>
         <div className="mt-10 mb-7">
-          <Image className="m-auto" src="/img/logo.png" width={200} height={200} />
+          <Image className="m-auto" alt="logo_img" src="/img/logo.png" width={200} height={200}  priority />
         </div>
         <div>
           <div className=" flex justify-center gap-5">
@@ -31,8 +52,8 @@ const RegisterPage = () => {
                 type="text"
                 name="name"
                 placeholder="Full Name"
-                //   value={formData.name}
-                //   onChange={handleChange}
+                  value={formData.name}
+                  onChange={handleChange}
                 className="w-full rounded-lg border p-3 pl-10 outline-none focus:border-blue-500 bg-white text-black"
               />
             </div>
@@ -44,8 +65,8 @@ const RegisterPage = () => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                //   value={formData.name}
-                //   onChange={handleChange}
+                  value={formData.email}
+                  onChange={handleChange}
                 className="w-full rounded-lg bg-white border p-3 pl-10 outline-none text-black focus:border-blue-500"
               />
             </div>
@@ -57,8 +78,8 @@ const RegisterPage = () => {
                 type="password"
                 name="password"
                 placeholder="Create a Password"
-                //   value={formData.name}
-                //   onChange={handleChange}
+                  value={formData.password}
+                  onChange={handleChange}
                 className="w-full rounded-lg border p-3 pl-10 outline-none bg-white text-black focus:border-blue-500"
               />
             </div>
@@ -70,8 +91,8 @@ const RegisterPage = () => {
                 type="password"
                 name="confirmPassword"
                 placeholder="Re-enter Password"
-                //   value={formData.name}
-                //   onChange={handleChange}
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
                 className="w-full rounded-lg border p-3 pl-10 outline-none bg-white text-black focus:border-blue-500"
               />
             </div>
