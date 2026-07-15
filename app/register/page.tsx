@@ -3,11 +3,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock ,FaEyeSlash , FaEye} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Button from "@/components/ui/Button";
 
 const RegisterPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [ShowconfirmPassword , setShowconfirmPassword] = useState(false)
     const [formData , setFormData]=useState({
         name : '',
         email : '',
@@ -75,26 +77,41 @@ const RegisterPage = () => {
               <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-[#318130]" />
 
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Create a Password"
                   value={formData.password}
                   onChange={handleChange}
                 className="w-full rounded-lg border p-3 pl-10 outline-none bg-white text-black focus:border-blue-500"
               />
+                <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
             </div>
 
             <div className="relative">
               <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-[#318130]" />
 
               <input
-                type="password"
+                type={ShowconfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 placeholder="Re-enter Password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 className="w-full rounded-lg border p-3 pl-10 outline-none bg-white text-black focus:border-blue-500"
               />
+
+               <button
+              type="button"
+              onClick={() =>setShowconfirmPassword (!ShowconfirmPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            >
+              {ShowconfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
             </div>
 
             <div>
